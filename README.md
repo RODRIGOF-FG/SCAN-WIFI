@@ -1,1 +1,81 @@
 # SCAN-WIFI
+
+
+```cmd
+import tkinter as tk
+import nmap
+import socket  # Agregar esta línea para importar el módulo socket
+
+
+
+def scan_subnet(subnet):
+    results_text.delete(1.0, tk.END)
+    for host in range(1, 255):
+        ip = f"{subnet}.{host}"
+        try:
+            host_info = socket.gethostbyaddr(ip)
+            results_text.insert(tk.END, f"Host: {ip}\n")
+            results_text.insert(tk.END, f"Host Name: {host_info[0]}\n")
+            results_text.insert(tk.END, f"System Type: {host_info[2]}\n\n")
+        except socket.herror:
+            results_text.insert(tk.END, f"Host: {ip}\n")
+            results_text.insert(tk.END, "Unable to resolve host name.\n\n")
+
+def scan_ports(ip):
+    results_text.delete(1.0, tk.END)
+    nm = nmap.PortScanner()
+    nm.scan(ip, arguments='-F')  # Fast scan
+    for host in nm.all_hosts():
+        results_text.insert(tk.END, f"Host: {host}\n")
+        if "tcp" in nm[host]:
+            for port in nm[host]["tcp"]:
+                if port == 80:
+                    results_text.insert(tk.END, f"Port {port}/TCP: HTTP\n")
+                elif port == 21:
+                    results_text.insert(tk.END, f"Port {port}/TCP: FTP\n")
+                elif port == 22:
+                    results_text.insert(tk.END, f"Port {port}/TCP: SSH\n")
+                else:
+                    results_text.insert(tk.END, f"Port {port}/TCP: {nm[host]['tcp'][port]['name']}\n")
+        else:
+            results_text.insert(tk.END, f"No open ports found on host {host}\n\n")
+
+# Resto del código es el mismo
+
+# Función para manejar el botón de escaneo de subred
+def scan_subnet_button():
+    subnet = subnet_entry.get()
+    scan_subnet(subnet)
+
+# Función para manejar el botón de escaneo de puertos
+def scan_ports_button():
+    ip = ip_entry.get()
+    scan_ports(ip)
+
+# Crear la ventana de la aplicación
+root = tk.Tk()
+root.title("Escáner de Red")
+
+# Etiqueta y campo de entrada para el escaneo de subred
+subnet_label = tk.Label(root, text="Subred a escanear:")
+subnet_label.pack()
+subnet_entry = tk.Entry(root)
+subnet_entry.pack()
+subnet_button = tk.Button(root, text="Escanear Subred", command=scan_subnet_button)
+subnet_button.pack()
+
+# Etiqueta y campo de entrada para el escaneo de puertos
+ip_label = tk.Label(root, text="IP a escanear:")
+ip_label.pack()
+ip_entry = tk.Entry(root)
+ip_entry.pack()
+ports_button = tk.Button(root, text="Escanear Puertos", command=scan_ports_button)
+ports_button.pack()
+
+# Área de resultados
+results_text = tk.Text(root, height=10, width=50)
+results_text.pack()
+
+root.mainloop()
+
+```
