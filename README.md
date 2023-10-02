@@ -1,5 +1,23 @@
 # SCAN-WIFI
 
+<br>
+
+Script en Python utilizando la biblioteca tkinter para la interfaz de usuario y la biblioteca nmap para realizar el escaneo de puertos a direcciones IP.
+
+<br>
+
+**Instalaciones para la ejecucion del script**
+
+<br>
+
+instalar la biblioteca nmap
+
+<br>
+
+```cmd
+pip install python-nmap
+```
+<br>
 
 ```cmd
 import tkinter as tk
