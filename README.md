@@ -10,6 +10,17 @@ Script en Python utilizando la biblioteca tkinter para la interfaz de usuario y 
 
 <br>
 
+Instalar python en kali linux
+
+<br>
+
+```cmd
+sudo apt-get update
+sudo apt-get install python3
+```
+
+<br>
+
 instalar la biblioteca nmap
 
 <br>
@@ -19,6 +30,19 @@ pip install python-nmap
 ```
 <br>
 
+instalar la biblioteca tkinter 
+
+<br>
+
+```cmd
+sudo apt-get install python3-tk
+```
+
+<br>
+
+script:
+
+<br>
 ```cmd
 import tkinter as tk
 import nmap
