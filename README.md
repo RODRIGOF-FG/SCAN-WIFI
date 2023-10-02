@@ -4,7 +4,7 @@
 ```cmd
 import tkinter as tk
 import nmap
-import socket  # Agregar esta línea para importar el módulo socket
+import socket  
 
 
 
@@ -40,23 +40,21 @@ def scan_ports(ip):
         else:
             results_text.insert(tk.END, f"No open ports found on host {host}\n\n")
 
-# Resto del código es el mismo
 
-# Función para manejar el botón de escaneo de subred
+
+
 def scan_subnet_button():
     subnet = subnet_entry.get()
     scan_subnet(subnet)
 
-# Función para manejar el botón de escaneo de puertos
+
 def scan_ports_button():
     ip = ip_entry.get()
     scan_ports(ip)
 
-# Crear la ventana de la aplicación
 root = tk.Tk()
 root.title("Escáner de Red")
 
-# Etiqueta y campo de entrada para el escaneo de subred
 subnet_label = tk.Label(root, text="Subred a escanear:")
 subnet_label.pack()
 subnet_entry = tk.Entry(root)
@@ -64,7 +62,6 @@ subnet_entry.pack()
 subnet_button = tk.Button(root, text="Escanear Subred", command=scan_subnet_button)
 subnet_button.pack()
 
-# Etiqueta y campo de entrada para el escaneo de puertos
 ip_label = tk.Label(root, text="IP a escanear:")
 ip_label.pack()
 ip_entry = tk.Entry(root)
@@ -72,7 +69,6 @@ ip_entry.pack()
 ports_button = tk.Button(root, text="Escanear Puertos", command=scan_ports_button)
 ports_button.pack()
 
-# Área de resultados
 results_text = tk.Text(root, height=10, width=50)
 results_text.pack()
 
